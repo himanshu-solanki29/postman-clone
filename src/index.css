@@ -1,0 +1,400 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #ff6b00;
+  --primary-hover: #ff8533;
+}
+
+/* Reset basic styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0a0a0a;
+  color: #ffffff;
+}
+
+/* Ensure the root div takes up full space */
+#root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+/* App title */
+.app-title {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+  background: linear-gradient(-45deg, #ff6b00, #ff3d8b, #4dabff, #7c3aed, #06b6d4);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.app-title::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff3d8b, #4dabff, #7c3aed);
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* MacOS window styles */
+.mac-window {
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
+  border-radius: 12px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease-in-out;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.mac-window.dragging {
+  transition: none !important;
+  opacity: 0.95;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.65);
+}
+
+.mac-title-bar {
+  height: 32px;
+  background: rgba(30, 30, 32, 0.85);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom: 1px solid rgba(60, 60, 65, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  user-select: none;
+}
+
+.mac-title-bar.can-drag {
+  cursor: grab;
+}
+
+.mac-title-bar.dragging {
+  cursor: grabbing !important;
+}
+
+.mac-traffic-light {
+  transition: all 0.15s ease;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.15);
+  width: 12px;
+  height: 12px;
+}
+
+.mac-traffic-light:hover {
+  filter: brightness(1.2);
+  transform: scale(1.05);
+}
+
+/* Special styling for the green (maximize) button */
+.mac-traffic-light.bg-\[\#28C840\] {
+  position: relative;
+}
+
+.mac-traffic-light.bg-\[\#28C840\]:hover::after {
+  content: '';
+  position: absolute;
+  top: 3.5px;
+  left: 3.5px;
+  width: 5px;
+  height: 5px;
+  border: 0.5px solid rgba(0, 0, 0, 0.4);
+  border-radius: 1px;
+}
+
+.mac-traffic-light.bg-\[\#28C840\]:active {
+  transform: scale(0.9);
+}
+
+/* Window-specific styles */
+.window-content {
+  height: calc(100% - 32px); /* Subtract title bar height */
+  overflow: hidden;
+  background: rgba(31, 41, 55, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  h1 {
+    @apply text-lg font-medium;
+  }
+
+  h2 {
+    @apply text-base font-medium;
+  }
+
+  h3 {
+    @apply text-sm font-medium;
+  }
+
+  pre, code {
+    font-size: 13px;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    cursor: pointer;
+  }
+
+  select:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px #f97316;
+    border-color: #f97316;
+  }
+
+  select:hover {
+    border-color: #4b5563;
+  }
+
+  select option {
+    @apply bg-gray-800 text-gray-100 py-2;
+    padding: 0.5rem;
+  }
+
+  select option:hover {
+    @apply bg-gray-700;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-orange-500 hover:bg-orange-600 text-white font-medium py-1.5 px-3 rounded text-sm;
+  }
+  
+  .input-field {
+    @apply bg-gray-800 border border-gray-700 rounded px-3 py-1.5 text-gray-100 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 text-sm;
+  }
+  
+  .card {
+    @apply bg-gray-800 rounded-md shadow-md border border-gray-700 overflow-hidden;
+  }
+  
+  .tab-button {
+    @apply py-2 px-3 text-xs font-medium text-gray-400 hover:text-white border-b-2 border-transparent;
+  }
+  
+  .tab-button-active {
+    @apply text-orange-500 border-b-2 border-orange-500;
+  }
+
+  .form-select {
+    @apply block bg-gray-800 border border-gray-700 rounded py-1.5 px-2 pr-8 text-gray-100 appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 text-sm;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+  }
+
+  .clear-response-btn {
+    @apply text-gray-400 hover:text-white;
+  }
+
+  .select-container {
+    @apply relative;
+  }
+
+  .select-dropdown {
+    @apply bg-gray-800 border border-gray-700 rounded appearance-none py-1.5 px-3 pr-8 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500;
+  }
+
+  .select-method {
+    @apply w-32 bg-gray-800 border border-gray-700 rounded;
+  }
+
+  .header-select {
+    @apply bg-gray-800 border border-gray-700 rounded py-1 px-2 text-sm;
+  }
+
+  .header-add-btn {
+    @apply bg-gray-700 hover:bg-gray-600 text-white py-1 px-3 rounded text-sm ml-2;
+  }
+}
+
+/* MacOS background wallpaper */
+.macos-wallpaper {
+  background: linear-gradient(150deg, #4286f4, #373B44, #000000); 
+  background-size: 400% 400%;
+  animation: gradient-animation 30s ease infinite;
+  position: relative;
+}
+
+.macos-wallpaper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.1), transparent 70%);
+  pointer-events: none;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* macOS Monterey-style wallpaper */
+.macos-monterey {
+  background: linear-gradient(125deg, #2D0D63, #6C33C1, #2E82DC, #2CCAC9);
+  background-size: 300% 300%;
+  animation: gradient-animation 25s ease infinite;
+  position: relative;
+}
+
+.macos-monterey::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 70%),
+    radial-gradient(circle at 70% 70%, rgba(100, 100, 255, 0.08), transparent 60%);
+  pointer-events: none;
+}
+
+/* macOS Big Sur-style wallpaper */
+.macos-big-sur {
+  background: linear-gradient(120deg, #ff9966, #ff5e62, #6E48AA);
+  background-size: 300% 300%;
+  animation: gradient-animation 20s ease infinite;
+  position: relative;
+}
+
+/* macOS Ventura-style wallpaper */
+.macos-ventura {
+  background: linear-gradient(140deg, #045DE9, #09C6F9, #72EDF2); 
+  background-size: 400% 400%;
+  animation: gradient-animation 30s ease infinite;
+  position: relative;
+}
+
+/* macOS Sonoma-style wallpaper (latest) */
+.macos-sonoma {
+  background: linear-gradient(125deg, #0E3B5F, #196BBF, #4DA4EB, #8DC2E8);
+  background-size: 300% 300%;
+  animation: gradient-animation 30s ease infinite;
+  position: relative;
+}
+
+.macos-sonoma::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.12), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 150, 255, 0.1), transparent 50%);
+  pointer-events: none;
+}
+
+/* macOS menu bar styles */
+.mac-menu-bar {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  z-index: 9999;
+}
+
+.mac-menu-item {
+  padding: 0 6px;
+  transition: all 0.15s ease;
+  cursor: default;
+  user-select: none;
+}
+
+.mac-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+.mac-status-icons {
+  font-weight: 300;
+}
+
+/* Fullscreen toggle button styles */
+.fullscreen-toggle-btn {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-bottom-left-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s ease-in-out;
+  opacity: 0;
+  z-index: 50;
+}
+
+.fullscreen-toggle-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.fullscreen-toggle-btn.visible {
+  opacity: 1;
+} 
