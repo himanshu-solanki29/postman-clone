@@ -44,7 +44,7 @@ A sleek, modern Postman-like API client built with React, TypeScript, and Tailwi
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/postman-clone.git
+git clone https://github.com/himanshu-solanki29/postman-clone
 cd postman-clone
 ```
 
