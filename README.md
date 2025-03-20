@@ -2,8 +2,7 @@
 
 A sleek, modern Postman-like API client built with React, TypeScript, and Tailwind CSS. This application allows you to make API requests, view responses, and save request history.
 
-![Postman Clone Screenshot](![image](https://github.com/user-attachments/assets/85feb2cf-6785-45fb-bfbb-d6f3e99072b5)
-)
+![image](https://github.com/user-attachments/assets/85feb2cf-6785-45fb-bfbb-d6f3e99072b5)
 
 ## Features
 
